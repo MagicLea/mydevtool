@@ -41,6 +41,7 @@ type connections [][]string
 var (
 	password      *string
 	disconnectAll *bool
+	listOnly      *bool
 )
 
 // pritunlCmd represents the pritunl command
@@ -86,17 +87,21 @@ var pritunlCmd = &cobra.Command{
 		}
 		table.Render()
 
-		// choose profile
-		var id string
-		fmt.Printf("Enter Profile ID or Name: ")
-		fmt.Scanln(&id)
-
 		// disconnect all connection if needed
 		if *disconnectAll {
 			gt.StopConnections()
 			fmt.Println("sent request to stop all connections")
 			time.Sleep(300 * time.Millisecond)
 		}
+
+		if *listOnly {
+			return
+		}
+
+		// choose profile
+		var id string
+		fmt.Printf("Enter Profile ID or Name: ")
+		fmt.Scanln(&id)
 
 		// connect
 		for pid, p := range gt.Profiles {
@@ -117,5 +122,6 @@ func init() {
 	rootCmd.AddCommand(pritunlCmd)
 
 	password = pritunlCmd.Flags().String("password", "", "specify password")
-	disconnectAll = pritunlCmd.Flags().Bool("disconnectAll", false, "whether disconnect all connections before connect new one")
+	disconnectAll = pritunlCmd.Flags().Bool("disconnectAll", false, "disconnect all connections")
+	listOnly = pritunlCmd.Flags().Bool("listOnly", false, "list profiles only, no create new connection")
 }
