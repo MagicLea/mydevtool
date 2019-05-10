@@ -28,7 +28,7 @@ var timestampCmd = &cobra.Command{
 	Aliases: []string{"ts"},
 	Short:   "Timestamp Conversion Tools",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 1 && len(args[0]) <= 4 {
+		if len(args) == 1 && len(args[0]) > 4 {
 			// query 1: timestamp -> human readable date
 			var timeMs int64
 			timestamp, err := strconv.ParseInt(args[0], 10, 64)
