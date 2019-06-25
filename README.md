@@ -77,7 +77,7 @@ if you would like to generate OTP automatically, try two-factor authentication a
 ```sh
 $ go get -u rsc.io/2fa
 $ 2fa -add serv1
-2fa key for gg: ****************
+2fa key for serv1: ****************
 $ PIN=000000
 $ mydevtool pritunl --password=$PIN$(2fa serv1)
 +----+-------------+--------------+
